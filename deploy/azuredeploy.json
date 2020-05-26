@@ -1,23 +1,36 @@
+
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "aksServicePrincipalAppId": {
+        "aadProfileClientAppID": {
             "type": "string",
             "metadata": {
-                "description": "appId of the service principal. Used by AKS to manage AKS related resources on Azure like vms, subnets."
+                "description": "1"
             }
         },
-        "aksServicePrincipalClientSecret": {
-            "type": "securestring",
-            "metadata": {
-                "description": "password for the service principal. Used by AKS to manage Azure."
-            }
-        },
-        "aksServicePrincipalObjectId": {
+        "aadProfileServerAppID": {
             "type": "string",
             "metadata": {
-                "description": "objectId of the service principal."
+                "description": "2"
+            }
+        },
+        "aadProfileServerAppSecret": {
+            "type": "string",
+            "metadata": {
+                "description": "3"
+            }
+        },
+         "aadProfileTenantID": {
+            "type": "string",
+            "metadata": {
+                "description": "4"
+            }
+        },
+        "aadProfileManaged": {
+            "type": "bool",
+            "metadata": {
+                "description": "5"
             }
         },
         "virtualNetworkAddressPrefix": {
@@ -606,9 +619,12 @@
                         "dnsPrefix": "agents"
                     }
                 ],
-                "servicePrincipalProfile": {
-                    "clientId": "[parameters('aksServicePrincipalAppId')]",
-                    "secret": "[parameters('aksServicePrincipalClientSecret')]"
+                "aadProfile": {
+                    "managed":"[parameters('aadProfileManaged')]",
+                    "clientAppID":"[parameters('aadProfileClientAppID')]",
+                    "serverAppID":"[parameters('aadProfileServerAppID')]",
+                    "serverAppSecret":"[parameters('aadProfileServerAppSecret')]",
+                    "tenantID":"[parameters('aadProfileTenantID')]"
                 },
                 "networkProfile": {
                     "networkPlugin": "azure",
