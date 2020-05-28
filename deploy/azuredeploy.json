@@ -33,6 +33,21 @@
                 "description": "5"
             }
         },
+        "aksServicePrincipalAppId": {
+             "type": "string",
+            "metadata": {
+                "description": "sdf"
+            }
+        },
+         "aksServicePrincipalClientSecret": {
+            "type": "securestring"
+         },
+        "aksServicePrincipalObjectId": {
+            "type": "string",
+            "metadata": {
+                "description": "objectId of the service principal."
+            }
+        },
         "virtualNetworkAddressPrefix": {
             "defaultValue": "10.0.0.0/8",
             "type": "string",
@@ -619,6 +634,10 @@
                         "dnsPrefix": "agents"
                     }
                 ],
+                "servicePrincipalProfile": {
+                    "clientId": "[parameters('aksServicePrincipalAppId')]",
+                    "secret": "[parameters('aksServicePrincipalClientSecret')]"
+                },
                 "aadProfile": {
                     "managed":"[parameters('aadProfileManaged')]",
                     "clientAppID":"[parameters('aadProfileClientAppID')]",
